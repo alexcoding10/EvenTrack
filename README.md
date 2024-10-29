@@ -20,7 +20,7 @@
 * **Alcance:**
     * **Funcionalidades:** Registro de usuarios, creación de eventos, registro de asistentes, localizacion(QRs), generación de informes, gerecación de grafícas y mapas de calor.
     * **Plataformas:** multiplataforma - inicialmente Web.
-    * **Tecnologías:** Java, React Native, Typescript, Sql.
+    * **Tecnologías:** Java, React Native, Typescript, Sql, python.
 
 ### 3. Justificación del Proyecto
 
