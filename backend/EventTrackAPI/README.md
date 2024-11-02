@@ -3,7 +3,8 @@
 - **Lenguaje**: TypeScript
 - **Dependencias**: 
   - **Nodemon**: Reinicio automático del servidor cuando hay un cambio.
-  - **tsc-alias**: Traduce las rutas de TypeScript a JavaScript.
+  - **tsconfig-paths**: Permite crear rutas personalizadas para importaciones.
+  - **tsc-alias**: Traduce las rutas de imports de TypeScript a JavaScript.
   - **dotenv**: Carga variables de entorno desde un archivo `.env`.
 
 # INICIAR PROYECTO
