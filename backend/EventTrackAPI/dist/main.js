@@ -4,16 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-//Prueba import usando Alias @
-const userServices_1 = require("@services/userServices");
-dotenv_1.default.config();
-const user = (0, userServices_1.getUser)();
+const config_1 = require("./config/config");
+const main_controller_1 = __importDefault(require("./controllers/main-controller"));
+//instancia de Express
 const app = (0, express_1.default)();
-const port = process.env.PORT;
-app.get("/", (req, res) => {
-    res.send(`Hola ${user.name} ${user.surname}`);
-});
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+// middleware para parsear a JSON
+app.use(express_1.default.json());
+//entrada para el router
+app.use('/api', main_controller_1.default);
+//inicia el servidor
+app.listen(config_1.SERVER_PORT, () => {
+    console.log(`[server]: Server is running at http://localhost:${config_1.SERVER_PORT}`);
 });

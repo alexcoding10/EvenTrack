@@ -1,21 +1,19 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import express from "express";
 
-//Prueba import usando Alias @
-import { getUser } from "@services/userServices";
+import { SERVER_PORT } from "./config/config";
+import routerMain from "./controllers/main-controller";
 
 
-dotenv.config();
+//instancia de Express
+const app = express();
 
-const user = getUser();
+// middleware para parsear a JSON
+app.use(express.json())
 
-const app: Express = express();
-const port = process.env.PORT;
+//entrada para el router
+app.use('/api',routerMain)
 
-app.get("/", (req: Request, res: Response) => {
-res.send(`Hola ${user.name} ${user.surname}`);
-});
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+//inicia el servidor
+app.listen(SERVER_PORT, () => {
+  console.log(`[server]: Server is running at http://localhost:${SERVER_PORT}`);
 });
