@@ -1,6 +1,6 @@
 // src/repository/user-repository.ts
-import { AppDataSource } from "../config/data-source"; // Asegúrate de que la ruta sea correcta
-import { User } from "../models/user"; // Asegúrate de que la ruta sea correcta
+import { AppDataSource } from "config/data-source"; // Asegúrate de que la ruta sea correcta
+import { User } from "models/user"; // Asegúrate de que la ruta sea correcta
 import { Repository } from "typeorm";
 
 export class UserRepository {

@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 // Definimos el esquema de validación para el usuario
 export const UserSchema = z.object({
-    id: z.number().int(), // opcional porque se generará automáticamente
+    id: z.number().int().optional(), // opcional porque se generará automáticamente
     email: z.string().email(), // debe ser un correo electrónico válido
     password: z.string()
         .min(8, { message: "La contraseña debe tener al menos 8 caracteres." })
@@ -19,5 +19,5 @@ export const UserSchema = z.object({
     }).optional(), 
     job_position: z.string().optional(), // opcional
     company: z.string().optional(), // opcional
-    date_registered: z.date() // opcional, se generará automáticamente
+    date_registered: z.date().optional() // opcional, se generará automáticamente
 });

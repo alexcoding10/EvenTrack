@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
 // src/repository/user-repository.ts
-const data_source_1 = require("../config/data-source"); // Asegúrate de que la ruta sea correcta
-const user_1 = require("../models/user"); // Asegúrate de que la ruta sea correcta
+const data_source_1 = require("config/data-source"); // Asegúrate de que la ruta sea correcta
+const user_1 = require("models/user"); // Asegúrate de que la ruta sea correcta
 class UserRepository {
     static findById(id) {
         return __awaiter(this, void 0, void 0, function* () {

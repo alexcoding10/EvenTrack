@@ -13,5 +13,5 @@ const user_controller_1 = __importDefault(require("./user-controller"));
 //Crear la instancia del router principal
 const router = (0, express_1.Router)();
 //router para usuarios
-router.use(user_controller_1.default);
+router.use("/", user_controller_1.default);
 exports.default = router;

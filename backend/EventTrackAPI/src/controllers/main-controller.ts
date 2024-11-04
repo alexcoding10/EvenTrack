@@ -10,6 +10,6 @@ import userRouter from "./user-controller";
 const router = Router()
 
 //router para usuarios
-router.use(userRouter)
+router.use("/",userRouter)
 
 export default router

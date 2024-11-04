@@ -5,7 +5,7 @@ exports.UserSchema = void 0;
 const zod_1 = require("zod");
 // Definimos el esquema de validación para el usuario
 exports.UserSchema = zod_1.z.object({
-    id: zod_1.z.number().int(), // opcional porque se generará automáticamente
+    id: zod_1.z.number().int().optional(), // opcional porque se generará automáticamente
     email: zod_1.z.string().email(), // debe ser un correo electrónico válido
     password: zod_1.z.string()
         .min(8, { message: "La contraseña debe tener al menos 8 caracteres." })
@@ -21,5 +21,5 @@ exports.UserSchema = zod_1.z.object({
     }).optional(),
     job_position: zod_1.z.string().optional(), // opcional
     company: zod_1.z.string().optional(), // opcional
-    date_registered: zod_1.z.date() // opcional, se generará automáticamente
+    date_registered: zod_1.z.date().optional() // opcional, se generará automáticamente
 });

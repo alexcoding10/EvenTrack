@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id?: number;
 
   @Column({ unique: true })  // Asegura que los emails sean únicos
   email!: string;
@@ -27,5 +27,5 @@ export class User {
   company?: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })  // Establece un valor por defecto
-  date_registered!: Date;
+  date_registered?: Date;
 }

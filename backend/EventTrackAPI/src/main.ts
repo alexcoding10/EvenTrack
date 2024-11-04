@@ -2,6 +2,7 @@ import express from "express";
 
 import { SERVER_PORT } from "./config/config";
 import routerMain from "./controllers/main-controller";
+import { AppDataSource } from "config/data-source";
 
 
 //instancia de Express
@@ -12,6 +13,9 @@ app.use(express.json())
 
 //entrada para el router
 app.use('/api',routerMain)
+
+//llamada al app source 
+AppDataSource.initialize();
 
 //inicia el servidor
 app.listen(SERVER_PORT, () => {

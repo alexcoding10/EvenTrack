@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc --project tsconfig.json && tsc-alias -p tsconfig.json ",
     "start": "node dist/main.js",
-    "dev": "nodemon -r tsconfig-paths/register src/main.ts",
-    "ts-dev": "nodemon --exec ts-node src/main.ts"
+    "dev": "nodemon -r tsconfig-paths/register src/main.ts"
   },
   "author": "2DAM CESUR",
   "license": "ISC",
@@ -29,6 +28,7 @@
     "class-validator": "^0.14.1",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
+    "ts-node-dev": "^2.0.0",
     "typeorm": "^0.3.20",
     "zod": "^3.23.8"
   }
