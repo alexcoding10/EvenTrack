@@ -1,8 +1,8 @@
 // src/services/userServices.ts
 import { Request, Response } from 'express'; 
-import { User } from 'models/user'; 
-import { UserRepository } from 'repository/user-repository'; 
-import { UserSchema } from 'schema/user-schema.';
+import { User } from '../models/user'; 
+import { UserRepository } from '../repository/user-repository'; 
+import { UserSchema } from '../schema/user-schema.';
 import { z } from 'zod';
 
 // Controlador para obtener todos los usuarios

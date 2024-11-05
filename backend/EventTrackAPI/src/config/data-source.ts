@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "./config";
-import { User } from "models/user";
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "../config/config";
+import { User } from "../models/user";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     password: DB_PASSWORD,
     database: DB_NAME,
     synchronize: true, // SOLO MIENTRAS ESTA EN DESARROLLO EN PRODUCCION PONER EN FALSE
-    logging: true,
+    logging: false,
     entities: [User],
     subscribers: [],
     migrations: [],

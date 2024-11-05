@@ -12,7 +12,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     password: config_1.DB_PASSWORD,
     database: config_1.DB_NAME,
     synchronize: true, // SOLO MIENTRAS ESTA EN DESARROLLO EN PRODUCCION PONER EN FALSE
-    logging: true,
+    logging: false,
     entities: [user_1.User],
     subscribers: [],
     migrations: [],

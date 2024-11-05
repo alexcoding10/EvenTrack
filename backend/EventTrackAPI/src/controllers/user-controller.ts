@@ -1,5 +1,5 @@
 
-import { createUser, getAllUser, getUserById } from "services/user-services";
+import { createUser, getAllUser, getUserById } from "../services/user-services";
 import { Router } from "express";
 
 //intancia del Router para usuario
