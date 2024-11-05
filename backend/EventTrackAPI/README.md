@@ -8,6 +8,19 @@
   - **dotenv**: Carga variables de entorno desde un archivo `.env`.
 
 # INICIAR PROYECTO
+Antes de ejecutar cualquier comando asegurarnos de estar en la ruta de la API, ejecutar:
+
+```
+cd EvenTrack\backend\EventTrackAPI
+```
+***Ejemplo ruta correcta:***
+
+**PS F:\DEV\PROYECTOS\TYPESCRIPT\EventTrack\EvenTrack\backend\EventTrackAPI>**
+
+Para instalar todas las dependencias de la API ejecutar:
+```
+npm install
+```
 Usa los scripts creados para iniciar el proyecto con el comando: 
 ```
 npm run <nombreScript>
