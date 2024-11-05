@@ -3,8 +3,7 @@ import express from "express";
 import { SERVER_PORT } from "./config/config";
 import routerMain from "./controllers/main-controller";
 import { AppDataSource } from "./config/data-source";
-import swaggerUi from 'swagger-ui-express';
-import { openapiDocument } from "./docs/openapi";
+import { swaggerSpec, swaggerUi } from "./docs/swagger";
 
 //instancia de Express
 const app = express();
@@ -14,12 +13,13 @@ app.use(express.json());
 
 //entrada para el router
 app.use('/api',routerMain);
+// Ruta de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //llamada al app source 
 AppDataSource.initialize();
 
-// Configuración de Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
+
 
 //inicia el servidor
 app.listen(SERVER_PORT, () => {

@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -29,3 +30,5 @@ export class User {
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })  // Establece un valor por defecto
   date_registered?: Date;
 }
+
+
