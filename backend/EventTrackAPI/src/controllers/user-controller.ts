@@ -1,17 +1,13 @@
-
-import { createUser, getAllUser, getUserById } from "../services/user-services";
+import { createUser, getAllUser, getUserById, loginUser } from "../services/user-services";
 import { Router } from "express";
-import { User } from "../models/user";
 
 //intancia del Router para usuario
-
-const router = Router()
-
+const router = Router();
 
 /**
  * @swagger
  * tags:
- *   name: Users
+ *   name: User
  *   description: API para gestionar usuarios
  */
 
@@ -20,7 +16,7 @@ const router = Router()
  * /api/users:
  *   get:
  *     summary: Obtiene todos los usuarios
- *     tags: [Users]
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: Listar todos los usuarios
@@ -31,10 +27,87 @@ const router = Router()
  *               items:
  *                  $ref: '#/components/schemas/User'
  */
-router.get('/users',getAllUser) //obtener todos los usuarios
+router.get('/users', getAllUser); //obtener todos los usuarios
 
-router.post('/user',createUser) //crear un usuario
+/**
+ * @swagger
+ * /api/user:
+ *   post:
+ *     summary: Crear un usuario
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserCreate'
+ *     responses:
+ *       201:
+ *         description: Usuario creado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
+router.post('/user', createUser); //crear un usuario
 
-router.get('/user/:id',getUserById)
+/**
+ * @swagger
+ * /api/user/{id}:
+ *   get:
+ *     summary: Obtener un usuario por ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: Datos del usuario
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: Usuario no encontrado
+ */
+router.get('/user/:id', getUserById);
 
-export default router
+
+/**
+ * @swagger
+ * /api/login:
+ *   get:
+ *     summary: Logear un usuario
+ *     tags: 
+ *       - User
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Email del usuario
+ *       - in: query
+ *         name: password
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Contraseña del usuario
+ *     responses:
+ *       200:
+ *         description: Genera el login de un usuario pero aún no está implementada la sesión
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginUser'
+ *       404:
+ *         description: Login fallido
+ */
+
+router.get('/login',loginUser)
+
+export default router;

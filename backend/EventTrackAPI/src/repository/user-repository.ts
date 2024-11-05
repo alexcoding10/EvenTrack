@@ -20,6 +20,10 @@ export class UserRepository {
     static async findAll():Promise<User[]> {
         return await this.repository.find({order:{id:'ASC'}})
     }
+
+    static async findByEmail(email:string):Promise<User | null>{
+        return await this.repository.findOne({where:{email}})
+    }
     // Otros métodos para manejar usuarios
     // Por ejemplo, puedes agregar métodos para actualizar o eliminar usuarios
 }

@@ -22,6 +22,8 @@ export const UserSchema = z.object({
     date_registered: z.date().optional() // opcional, se generará automáticamente
 });
 
+
+
 export const userSchema = {
     type: 'object',
     properties: {
@@ -36,4 +38,18 @@ export const userSchema = {
       date_registered: { type: 'string', format: 'date-time' },
     },
     required: ['id', 'email', 'password'],
+  };
+
+  export const userCreateSchema = {
+    type: 'object',
+    properties: {
+      email: { type: 'string' },
+      password: { type: 'string' },
+      name: { type: 'string' },
+      age: { type: 'integer' },
+      sex: { type: 'string' },
+      job_position: { type: 'string' },
+      company: { type: 'string' },
+    },
+    required: [ 'email', 'password','name','age','sex','job_position','company'],
   };

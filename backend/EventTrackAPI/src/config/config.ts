@@ -13,3 +13,7 @@ export const DB_NAME = process.env.DB_NAME || 'eventrack';
 
 //Configuracion del server
 export const SERVER_PORT = process.env.PORT || 3000;
+
+//Configuracion del rounds
+
+export const SALT_ROUNDS = 15;

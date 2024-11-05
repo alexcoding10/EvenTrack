@@ -1,7 +1,8 @@
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { SERVER_PORT } from '../config/config';
-import { userSchema } from '../schema/user-schema.';
+import { userCreateSchema, userSchema } from '../schema/user-schema.';
+import { LoginUserSchema } from '../schema/login-schema';
 
 
 // Opciones de configuración para swagger-jsdoc
@@ -20,7 +21,9 @@ const options = {
       ],
       components: { // agregar los schema
         schemas: {
-          User: userSchema
+          User: userSchema,
+          UserCreate: userCreateSchema,
+          LoginUser:LoginUserSchema
         },
       },
     },

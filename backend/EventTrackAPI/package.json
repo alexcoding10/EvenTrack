@@ -12,6 +12,7 @@
   "author": "2DAM CESUR",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^22.8.7",
     "@types/swagger-jsdoc": "^6.0.4",
@@ -22,6 +23,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "pg": "^8.13.1",
