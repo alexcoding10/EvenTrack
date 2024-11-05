@@ -1,70 +1,104 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from "react";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import PasswordIcon from "@/components/passwordIcon";
+import EmailIcon from "@/components/emailIcon";
+import Background from "@/components/background";
+import { useGlobalStyle } from "@/hooks/useGlobalStyle";
 
 export default function HomeScreen() {
+  const {
+    container,
+    containerBtn,
+    containerMain,
+    formu,
+    textLogo,
+    containerLabel,
+    labelFormu,
+    iconInput,
+    input,
+    btn,
+    textBtn
+  } = useGlobalStyle();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">hola faly!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={container}>
+      <StatusBar style="light" backgroundColor="#09021C" />
+      <Background />
+      <View style={containerMain}>
+        <Text style={[textLogo]}>EvenTrack</Text>
+      </View>
+
+      <View style={formu}>
+        <View style={[containerLabel]}>
+          <View style={[labelFormu]}>
+            <View style={iconInput}>
+              <EmailIcon />
+            </View>
+            <TextInput
+              placeholder="username"
+              placeholderTextColor={"rgba(250,250,250,0.5)"}
+              style={[input]}
+              underlineColorAndroid='transparent'
+              onFocus={(e:any) => e.target.style.outline = 'none'} // Para la web
+            />
+          </View>
+
+          <View style={[labelFormu]}>
+            <View style={iconInput}>
+              <PasswordIcon />
+            </View>
+            <TextInput
+              placeholder="password"
+              secureTextEntry={true}
+              placeholderTextColor={"rgba(250,250,250,0.5)"}
+              style={[input]}
+              underlineColorAndroid='transparent'
+              onFocus={(e:any) => e.target.style.outline = 'none'}
+            />
+          </View>
+        </View>
+
+        <View style={containerBtn}>
+          <TouchableOpacity
+            style={[btn, { backgroundColor: "#140633" }]}
+            activeOpacity={0.7} // Cambia la opacidad al tocar
+            accessible={true}
+            accessibilityLabel="Log in"
+          >
+            <Text style={[textBtn, { color: "#AE75FF" }]}>Log in</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[btn, { backgroundColor: "#333" }]}
+            activeOpacity={0.7} // Cambia la opacidad al tocar
+            accessible={true}
+            accessibilityLabel="Sign Up"
+          >
+            <Text style={[textBtn, { color: "#FFF" }]}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   );
 }
 
+// Estilos generales (aquí podrías incluir tus estilos específicos)
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  box: {
+    width: "100%",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
+  statusBarBackground: {
+    height: 44, // Altura estándar de la barra de estado en iOS
+    backgroundColor: "#09021C", // Color de fondo deseado
+    position: "absolute",
+    top: 0,
     left: 0,
-    position: 'absolute',
+    right: 0,
   },
 });
