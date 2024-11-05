@@ -1,5 +1,0 @@
-{
-    "watch": ["src"],
-    "ext": "ts",
-    "exec": "concurrently \"npx tsc --watch && npx tsc-alias -p tsconfig.json\" \"ts-node -r tsconfig-paths/register src/main.ts\""
-}
