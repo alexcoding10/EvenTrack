@@ -34,8 +34,8 @@ export const useGlobalStyle = () => {
         textAlign: "center",
       },
       input: {
-        minWidth: isDesktop ? 230 : "80%",
-        width: isDesktop ? 900: "80%", 
+        minWidth: isDesktop ? 230 : "70%",
+        width: isDesktop ? 1000 : "70%", 
         height: isDesktop ? 70 : 30,
         borderBottomColor: "#fff",
         borderBottomWidth: 1,
@@ -53,6 +53,14 @@ export const useGlobalStyle = () => {
       },
       formu: {
         flex: isDesktop ? 1 : 1,
+        // borderWidth: isDesktop ? 1 : 1,
+        // borderColor: "#fff",
+        borderRadius: 24,
+        padding: 20,
+        backgroundColor: "rgba(51, 51, 51, 0.7)",
+        margin: isDesktop ? 120 : 20,
+        marginBottom: isDesktop ? 130 : 100,
+        justifyContent: "center",
       },
       containerMain: {
         flex: isDesktop ? 1 : 0.5,
