@@ -80,23 +80,25 @@ router.get('/user/:id', getUserById);
 /**
  * @swagger
  * /api/login:
- *   get:
+ *   post:
  *     summary: Logear un usuario
- *     tags: 
+ *     tags:
  *       - User
- *     parameters:
- *       - in: query
- *         name: email
- *         schema:
- *           type: string
- *         required: true
- *         description: Email del usuario
- *       - in: query
- *         name: password
- *         schema:
- *           type: string
- *         required: true
- *         description: Contraseña del usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email del usuario
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 description: Contraseña del usuario
+ *                 example: password123
  *     responses:
  *       200:
  *         description: Genera el login de un usuario pero aún no está implementada la sesión
@@ -108,6 +110,6 @@ router.get('/user/:id', getUserById);
  *         description: Login fallido
  */
 
-router.get('/login',loginUser)
+router.post('/login',loginUser)
 
 export default router;

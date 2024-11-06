@@ -81,7 +81,7 @@ export const loginUser = async(req:Request,res:Response):Promise<void> =>{
     try {
         // Validamos el esquema del cuerpo de la solicitud
         const userLogin = LoginUserSchema.parse(req.body);
-    
+        
         // Ver si existe un usuario con ese email (esperar la promesa)
         const user = await UserRepository.findByEmail(userLogin.email);
     

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -11,8 +11,39 @@ import PasswordIcon from "@/components/passwordIcon";
 import EmailIcon from "@/components/emailIcon";
 import Background from "@/components/background";
 import { useGlobalStyle } from "@/hooks/useGlobalStyle";
+import { URL_API } from "@/util/db.config";
 
 export default function HomeScreen() {
+  // declaración de variables
+  const [user, setUser] = useState({ email: "", password: "" });
+
+  const handlerForm = (text: string, input: string) => {
+    setUser((prevState) => ({
+      ...prevState,
+      [input]: text, // actualiza el campo específico según el nombre
+    }));
+  };
+
+  const handleLogin = ()=>{
+    fetch(URL_API + "/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json', // Indicamos que estamos enviando JSON
+      },
+      body:JSON.stringify(user)
+    })
+    .then((res)=> res.json())  // parseo la respuesta
+    .then((data)=>{
+      // si la respuesta es ok se cageria el id del usuario y se guardaría en localhost
+      // se enviaria a nueva pagina
+
+      console.log({"respuesta": data})
+    })
+    .catch((err)=>{
+      console.error('Error:', err);
+    })
+  }
+
   const {
     container,
     containerBtn,
@@ -24,7 +55,7 @@ export default function HomeScreen() {
     iconInput,
     input,
     btn,
-    textBtn
+    textBtn,
   } = useGlobalStyle();
 
   return (
@@ -42,11 +73,11 @@ export default function HomeScreen() {
               <EmailIcon />
             </View>
             <TextInput
-              placeholder="username"
+              placeholder="email"
               placeholderTextColor={"rgba(250,250,250,0.5)"}
               style={[input]}
-              underlineColorAndroid='transparent'
-              onFocus={(e:any) => e.target.style.outline = 'none'} // Para la web
+              value={user.email}
+              onChangeText={(text) => handlerForm(text, "email")}
             />
           </View>
 
@@ -55,12 +86,12 @@ export default function HomeScreen() {
               <PasswordIcon />
             </View>
             <TextInput
-              placeholder="password"
+              placeholder="Password"
               secureTextEntry={true}
               placeholderTextColor={"rgba(250,250,250,0.5)"}
               style={[input]}
-              underlineColorAndroid='transparent'
-              onFocus={(e:any) => e.target.style.outline = 'none'}
+              value={user.password}
+              onChangeText={(text) => handlerForm(text, "password")}
             />
           </View>
         </View>
@@ -71,6 +102,7 @@ export default function HomeScreen() {
             activeOpacity={0.7} // Cambia la opacidad al tocar
             accessible={true}
             accessibilityLabel="Log in"
+            onPress={handleLogin}
           >
             <Text style={[textBtn, { color: "#AE75FF" }]}>Log in</Text>
           </TouchableOpacity>
