@@ -10,8 +10,8 @@ import { StatusBar } from "expo-status-bar";
 import PasswordIcon from "@/components/passwordIcon";
 import EmailIcon from "@/components/emailIcon";
 import Background from "@/components/background";
-import { useGlobalStyle } from "@/hooks/useGlobalStyle";
-
+import { useLogingStyle } from "@/hooks/useLogingStyle";
+import { useRegisterStyles } from "@/hooks/useRegisterStyle";
 // Define the LoginScreen component
 export const LoginScreen = () => {
   const {
@@ -26,7 +26,7 @@ export const LoginScreen = () => {
     input,
     btn,
     textBtn
-  } = useGlobalStyle(); // Hook for global styles
+  } = useRegisterStyles(); // Hook for global styles
 
   return (
     <View style={container}>

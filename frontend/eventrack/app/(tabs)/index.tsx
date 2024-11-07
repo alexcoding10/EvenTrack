@@ -5,6 +5,6 @@ import RegisterScreen from '@/screens/registerScreen';
 
 export default function AppNavigator() {
   return (
-    <RegisterScreen></RegisterScreen>
+    <LoginScreen></LoginScreen>
   );
 }
