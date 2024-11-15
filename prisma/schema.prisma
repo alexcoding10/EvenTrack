@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de la tabla "user"
+model User {
+  id          Int       @id @default(autoincrement()) // Identificador único del usuario
+  name        String    // Nombre del usuario
+  age         Int       // Edad del usuario, valor por defecto 0
+  sex         Int       // Sexo del usuario, valor por defecto (por ejemplo, 0)
+  role        String    @default("normal") // Rol del usuario, valor por defecto "normal"
+  email       String    @unique // Correo electrónico único
+  password    String    // Contraseña del usuario, valor por defecto vacío
+  jobPostId   Int?      // Relación con job_post (opcional)
+  jobPost     JobPost?  @relation(fields: [jobPostId], references: [id])
+  companyId   Int?      // Relación con company (opcional)
+  company     Company?  @relation(fields: [companyId], references: [id])
+  registered  DateTime  @default(now()) // Fecha de registro del usuario, valor por defecto "ahora"
+
+  events      EventUser[]
+  stands      StandUser[]
+}
+
+// Modelo de la tabla "job_post"
+model JobPost {
+  id    Int     @id @default(autoincrement()) // Identificador único del puesto de trabajo
+  name  String  // Nombre del puesto
+
+  users User[] // Relación con los usuarios
+}
+
+// Modelo de la tabla "company"
+model Company {
+  id      Int     @id @default(autoincrement()) // Identificador único de la empresa
+  name    String  // Nombre de la empresa
+  address String? // Dirección de la empresa (opcional)
+
+  users   User[]  // Relación con los usuarios
+}
+
+// Modelo de la tabla "event"
+model Event {
+  id    Int        @id @default(autoincrement()) // Identificador único del evento
+  name  String     // Nombre del evento
+  date  DateTime   // Fecha del evento
+
+  stands StandEvent[]    // Relación con los stands
+  users  EventUser[]     // Relación con los usuarios
+}
+
+// Modelo de la tabla "stand"
+model Stand {
+  id          Int            @id @default(autoincrement()) // Identificador único del stand
+  name        String         // Nombre del stand
+  description String?        // Descripción del stand (opcional)
+
+  events      StandEvent[]   // Relación con eventos
+  users       StandUser[]    // Relación con usuarios
+}
+
+// Modelo de la tabla de relación "event_stand"
+model StandEvent {
+  id        Int     @id @default(autoincrement())  // Identificador único de la relación stand-event
+  standId   Int     // Relación con Stand
+  eventId   Int     // Relación con Event
+
+  stand     Stand   @relation(fields: [standId], references: [id])
+  event     Event   @relation(fields: [eventId], references: [id])
+
+  @@unique([standId, eventId]) // Para asegurar que una relación stand-event sea única
+}
+
+// Modelo de la tabla de relación "event_user"
+model EventUser {
+  id         Int     @id @default(autoincrement()) // Identificador único de la relación evento-usuario
+  eventId    Int     // Relación con Event
+  userId     Int     // Relación con User
+  arrivalDate DateTime  @default(now())// Fecha de llegada al evento
+  exitDate   DateTime? // Fecha de salida del evento (opcional)
+
+  event      Event    @relation(fields: [eventId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([eventId, userId]) // Relación única entre evento y usuario
+}
+
+// Modelo de la tabla de relación "stand_user"
+model StandUser {
+  id         Int     @id @default(autoincrement()) // Identificador único de la relación stand-usuario
+  standId    Int     // Relación con Stand
+  userId     Int     // Relación con User
+  arrivalDate DateTime  @default(now()) // Fecha de llegada al stand
+  exitDate   DateTime? // Fecha de salida del stand (opcional)
+
+  stand      Stand    @relation(fields: [standId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([standId, userId]) // Relación única entre stand y usuario
+}
