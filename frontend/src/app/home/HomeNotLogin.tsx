@@ -4,7 +4,6 @@ import CarrouselCardEvent from '../prueba/CarrouselCardEvent'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import GroupsIcon from '@mui/icons-material/Groups';
 
@@ -14,7 +13,7 @@ export default function HomeNotLogin() {
         <div className='w-full h-screen flex flex-col justify-center items-center '>
 
             <div className='flex items-center  w-full h-[80px] px-5 py-4 gap-4'>
-                <Typography variant='h4' className='mb-14 basis-4/5 text-purple-200'>EvenTack</Typography>
+                <Typography variant='h4' className='mb-14 basis-4/5 text-purple-200'>EvenTrack</Typography>
 
                 <Button className="min-w-32 basis-1/6" variant="contained" sx={{ backgroundColor: '#333', borderRadius: '24px', height: '54px' }} href="/registro">
                     Registrarse
