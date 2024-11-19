@@ -106,5 +106,5 @@ model StandUser {
   stand      Stand    @relation(fields: [standId], references: [id])
   user       User     @relation(fields: [userId], references: [id])
 
-  @@unique([standId, userId]) // Relación única entre stand y usuario
+  //@@unique([standId, userId]) // Relación única entre stand y usuario
 }
