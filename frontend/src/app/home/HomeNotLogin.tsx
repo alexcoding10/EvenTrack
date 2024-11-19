@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
-import CarrouselCardEvent from '../prueba/CarrouselCardEvent'
+import CarrouselCardEvent from '../../components/CarrouselCardEvent'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';

@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import 'keen-slider/keen-slider.min.css'
 import { TrackDetails, useKeenSlider } from 'keen-slider/react'
-import CardEvent from './CardEvent';
-import { Event } from '../types/event';
+import CardEvent from '../app/prueba/CardEvent';
+import { Event } from '../app/types/event';
 import { API_URL} from '@/util/config';
 import Carga from '@/components/Carga';
 import { getCardColorByIndex  } from '@/util/cardColor.config';
@@ -29,6 +29,7 @@ export default function CarrouselCardEvent() {
 
                 const events = data.map((ev: Event, index:number) => ({
                     ...ev,
+                    id:ev.id,
                     date: new Date(ev.date),
                     bgColor: getCardColorByIndex(index).bgColor,  // Agregar el color de fondo aleatorio
                     textColor: getCardColorByIndex(index).textColor, // Agregar el color de texto correspondiente
@@ -97,6 +98,7 @@ export default function CarrouselCardEvent() {
                                     textColor={card.textColor}
                                     date={card.date}
                                     name={card.name}
+                                    id={card.id}
                                 />
                             </div>
                         </div>

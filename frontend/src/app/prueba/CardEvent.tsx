@@ -12,14 +12,17 @@ export interface EventCardProps {
     bgColor?: string
     textColor?: string
     disable?: boolean
+    idUser?:number|null
 }
 
 export default function CardEvent({
+    id=-1,
     name = "LoremIpsun",
     date = new Date(2024, 10, 20),
     bgColor = "#1ABC9C",
     textColor = "#fff",
-    disable = false
+    disable = false,
+    idUser = null
 }: EventCardProps) {
     const colorDisable = "#999"
     const [timeLeft, setTimeLeft] = useState({
@@ -29,7 +32,6 @@ export default function CardEvent({
         seconds: 0,
     });
     const [disableC, setDisable] = useState(disable)
-    const [token, setToken] = useState(false)
     const [openModal, setOpenModal] = useState(false)
 
     // Función para aclarar el color (si es necesario)
@@ -64,10 +66,17 @@ export default function CardEvent({
 
     // Función para inscribirse
     const handleRegisterBtn = () => {
-        if (token) {
+        if (idUser) {
             // Aquí puedes manejar el caso de usuario logueado
+
+            // verificar que el usuario tiene check in en este evento
+
+            // si lo tiene mostrar todos los stands 
+
+            // si no lo tiene mostrar modal para generar el check in con qr
         } else {
             setOpenModal(true); // Abrir el modal si no está registrado
+            console.log(`el id es: ${id}`)
         }
     }
 
@@ -78,11 +87,6 @@ export default function CardEvent({
         return () => clearInterval(timer); // Limpiar al desmontar
     }, [date]);
 
-    // Efecto para verificar si el usuario está registrado
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        setToken(!!token); // Actualiza el estado basado en la existencia del token
-    }, []);
 
     // Definir los estilos para la tarjeta
     const cardStyles: React.CSSProperties = {
@@ -107,7 +111,7 @@ export default function CardEvent({
                 color: disableC ? 'black' : textColor,
                 textDecoration: disableC ? 'line-through' : 'none'
             }}>
-                {timeLeft.days} <span className="text-gray-600">d</span> : {timeLeft.hours} <span className="text-gray-600">h</span> : {timeLeft.minutes} <span className="text-gray-600">m</span> : {timeLeft.seconds} <span className="text-gray-600">s</span>
+                {timeLeft.days} <span className={`${lightenHexColor(textColor,30)}`}>d</span> : {timeLeft.hours} <span className={`${lightenHexColor(textColor,30)}`}>h</span> : {timeLeft.minutes} <span className={`${lightenHexColor(textColor,30)}`}>m</span> : {timeLeft.seconds} <span className={`${lightenHexColor(textColor,-20)}`}>s</span>
             </Typography>
             <Button
                 disabled={disableC}

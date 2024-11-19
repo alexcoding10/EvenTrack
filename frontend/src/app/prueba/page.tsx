@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import CarrouselCardEvent from './CarrouselCardEvent';
+import CarrouselCardEvent from '../../components/CarrouselCardEvent';
 
 export default function Page() {
    
