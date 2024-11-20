@@ -30,7 +30,7 @@ export class EventUserService {
 
   async update(id: number, updateEventUserDto: UpdateEventUserDto) {
     try {
-      return await this.prisma.eventUser.update({ where: {id }, data: updateEventUserDto })
+      return await this.prisma.eventUser.update({ where: { id }, data: updateEventUserDto })
     } catch (error) {
       throw new NotFoundException('El eventUser no existe')
     }
@@ -45,7 +45,7 @@ export class EventUserService {
     }
   }
 
-  async getEventForUserById( idUser: number) {
+  async getEventForUserById(idUser: number) {
     return await this.prisma.eventUser.findMany({
       where: {
         userId: idUser,
@@ -56,4 +56,33 @@ export class EventUserService {
       }
     })
   }
+  async updateExitDateForUser(updateEvent: UpdateEventUserDto) {
+    // Validar que se proporcionen todos los parámetros necesarios
+    if (!updateEvent.eventId || !updateEvent.userId) {
+      throw new BadRequestException('Falta el id de usuario o del evento');
+    }
+
+    // Buscar el último evento asociado al usuario y el evento
+    const lastEvent = await this.prisma.eventUser.findFirst({
+      where: { eventId: updateEvent.eventId, userId: updateEvent.userId },
+      orderBy: { id: 'desc' }, // Ordenar por ID de forma descendente para obtener el último
+    });
+
+    // Verificar si se encontró un evento
+    if (!lastEvent) {
+      throw new NotFoundException('No se encontró ningún evento para este usuario');
+    }
+
+    // Verificar si el usuario ya ha salido del evento
+    if (lastEvent.exitDate) {
+      throw new BadRequestException('El usuario ya ha salido del evento');
+    }
+
+    // Actualizar el evento con los nuevos datos
+    return await this.prisma.eventUser.update({
+      where: { id: lastEvent.id },
+      data: updateEvent,
+    });
+  }
 }
+

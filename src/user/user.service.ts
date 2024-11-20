@@ -22,10 +22,10 @@ export class UserService {
     async getUserByID(id: number): Promise<User> {
         const userFound = await this.prisma.user.findUnique({
             where: {
-                id
+                id:id
             },
             include:{
-                company:true,
+                company:true, 
                 events:true,
                 jobPost:true,
                 stands:true

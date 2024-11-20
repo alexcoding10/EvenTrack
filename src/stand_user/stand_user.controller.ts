@@ -27,10 +27,21 @@ export class StandUserController {
     return this.standUserService.getStandForUserById(+userId)
   }
 
+  @Get('iduser/:userId/idevent/:eventId')
+  getStandUserForEventByIds(@Param('userId') userId: string, @Param('eventId') eventId: string) {
+    return this.standUserService.getStandUserForEventByIds(+userId,+eventId)
+  }
+  
+  @Patch('/exit')
+  exitStand(@Body() updateStandUserDto: UpdateStandUserDto){
+    console.log(updateStandUserDto)
+    return this.standUserService.updateExitStandUser(updateStandUserDto);
+  }
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStandUserDto: UpdateStandUserDto) {
     return this.standUserService.update(+id, updateStandUserDto);
   }
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {

@@ -21,7 +21,7 @@ export class EventService {
   }
 
   async findOne(id: number) {
-    const eventFound = await this.prisma.event.findUnique({ where: { id: id, }, })
+    const eventFound = await this.prisma.event.findUnique({ where: { id: id, } })
 
     if (!eventFound) throw new NotFoundException(`Puesto de evento con id -> ${id} no encontrado`)
 

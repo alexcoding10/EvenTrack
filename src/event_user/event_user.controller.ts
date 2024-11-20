@@ -9,6 +9,7 @@ export class EventUserController {
 
   @Post()
   create(@Body() createEventUserDto: CreateEventUserDto) {
+    console.log(createEventUserDto)
     return this.eventUserService.create(createEventUserDto);
   }
 
@@ -26,7 +27,11 @@ export class EventUserController {
   findEventForUserById(@Param('idUser') idUser:string){
     return this.eventUserService.getEventForUserById(+idUser)
   }
-
+  
+  @Patch('exit')
+  updateEventForUser(@Body() UpdateEventUserDto:UpdateEventUserDto){
+    return this.eventUserService.updateExitDateForUser(UpdateEventUserDto)
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEventUserDto: UpdateEventUserDto) {

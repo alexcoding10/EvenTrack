@@ -43,8 +43,11 @@ export class StandEventService {
   }
 
   async getStandForEvent(eventId: number) {
-    const standEventFound = await this.prisma.standEvent.findMany({ where: { eventId }, include: { event: true, stand: true } });
+    const standEventFound = await this.prisma.standEvent.findMany({ where: { eventId }, include: { stand: true } });
     if (!standEventFound) throw new NotFoundException('Stands no encotrado')
-    return standEventFound
+    const stands = standEventFound.map((standEvent) => {
+      return { stand: standEvent.stand };
+    });
+    return stands
   }
 }

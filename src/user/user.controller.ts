@@ -14,8 +14,7 @@ export class UserController {
     @Get(':id')
     async getUser(@Param('id') id:string):Promise<User>{
         try {
-            return await this.userService.getUserByID(Number(id))
-            
+            return await this.userService.getUserByID(+id)
         } catch (error) {
             throw new BadRequestException('El id debe ser un número entero')
         }
