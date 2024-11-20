@@ -16,6 +16,8 @@
 }
 
 body {
+  width: 100%;
+  height: 100vh;
   color: white;
   background: radial-gradient(222.94% 210.37% at 185.91% 155.39%, #000 0%, #040404 33.3%, #743BB1 59.39%, #21055B 80.08%, #0E0227 92.21%, #09021C 100%);
 }

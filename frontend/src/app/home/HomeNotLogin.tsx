@@ -1,11 +1,12 @@
 import { Button, Typography } from '@mui/material'
 import React from 'react'
-import CarrouselCardEvent from '../../components/CarrouselCardEvent'
+
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import GroupsIcon from '@mui/icons-material/Groups';
+import CarrouselCardEvent from '@/components/card/CarrouselCardEvent';
 
 export default function HomeNotLogin() {
     const [value, setValue] = React.useState(0);

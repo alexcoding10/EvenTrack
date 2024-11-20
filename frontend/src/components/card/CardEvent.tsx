@@ -1,9 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Typography } from '@mui/material';
 import { AddCircle, Block } from "@mui/icons-material"
-import ModalRegister from '@/components/ModalRegister';
+import ModalRegister from '@/components/modal/ModalRegister';
+import { User } from '@/types/user';
+import ModalCheckIn from '@/components/modal/ModalCheckIn';
+import { useRouter } from 'next/navigation';
 
 export interface EventCardProps {
     id?: number
@@ -12,7 +15,7 @@ export interface EventCardProps {
     bgColor?: string
     textColor?: string
     disable?: boolean
-    idUser?:number|null
+    user?:User|null
 }
 
 export default function CardEvent({
@@ -22,18 +25,22 @@ export default function CardEvent({
     bgColor = "#1ABC9C",
     textColor = "#fff",
     disable = false,
-    idUser = null
+    user = null
 }: EventCardProps) {
+    const router=useRouter()
     const colorDisable = "#999"
-    const [timeLeft, setTimeLeft] = useState({
+    // Ref para mantener el tiempo sin causar re-render
+    const timeLeftRef = useRef({
         days: 0,
         hours: 0,
         minutes: 0,
         seconds: 0,
     });
+    const [, setDummyState] = useState({}); // Solo para forzar re-render manualmente
+
     const [disableC, setDisable] = useState(disable)
     const [openModal, setOpenModal] = useState(false)
-
+    const [openCheckIn,setOpenCheckIn] = useState(false)
     // Función para aclarar el color (si es necesario)
     function lightenHexColor(hex: string, percent: number): string {
         hex = hex.replace(/^#/, '');
@@ -57,26 +64,46 @@ export default function CardEvent({
             const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
             const minutes = Math.floor((difference / (1000 * 60)) % 60);
             const seconds = Math.floor((difference / 1000) % 60);
-            setTimeLeft({ days, hours, minutes, seconds });
+
+            timeLeftRef.current = { days, hours, minutes, seconds };
         } else {
-            setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-            setDisable(true); // Disable el evento si ya ha pasado
+            timeLeftRef.current = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+            setDisable(true);
         }
+
+        // Forzar renderización solo del componente del contador
+        setDummyState({});
     };
+
 
     // Función para inscribirse
     const handleRegisterBtn = () => {
-        if (idUser) {
-            // Aquí puedes manejar el caso de usuario logueado
-
+        if (user) {
             // verificar que el usuario tiene check in en este evento
+            const event = user.events.filter(event => event.id == id)
+            console.log(event)
+            if(event.length != 0){
+                // si lo tiene verifica si tiene check out
+                const checkOut = event[event.length-1].exitDate
+                if(checkOut != null){
+                    //hacer check in  para un nuevo registro
+                    console.log("hago check in y entro al evento")
+                }else{
+                    //redireccionas a la pagina del evento
+                    console.log("entro al evento")
+                    router.push(`stand/${event[event.length - 1].id}`)
 
-            // si lo tiene mostrar todos los stands 
-
+                }
+            }else{
+                //si no tiene eventos crear el check in
+                console.log("No he estado en este evento nunca, hago check in y entro al evento con id ", id)
+                //abro el modal de chek in
+                setOpenCheckIn(true)
+            }
+            
             // si no lo tiene mostrar modal para generar el check in con qr
         } else {
             setOpenModal(true); // Abrir el modal si no está registrado
-            console.log(`el id es: ${id}`)
         }
     }
 
@@ -111,7 +138,7 @@ export default function CardEvent({
                 color: disableC ? 'black' : textColor,
                 textDecoration: disableC ? 'line-through' : 'none'
             }}>
-                {timeLeft.days} <span className={`${lightenHexColor(textColor,30)}`}>d</span> : {timeLeft.hours} <span className={`${lightenHexColor(textColor,30)}`}>h</span> : {timeLeft.minutes} <span className={`${lightenHexColor(textColor,30)}`}>m</span> : {timeLeft.seconds} <span className={`${lightenHexColor(textColor,-20)}`}>s</span>
+                {timeLeftRef.current.days}d : {timeLeftRef.current.hours}h : {timeLeftRef.current.minutes}m : {timeLeftRef.current.seconds}s
             </Typography>
             <Button
                 disabled={disableC}
@@ -123,6 +150,7 @@ export default function CardEvent({
                 {!disableC ? "Entrar" : "Cerrado"}
             </Button>
             <ModalRegister open={openModal} setOpen={setOpenModal} />
+            <ModalCheckIn open={openCheckIn} setOpen={setOpenCheckIn} />
         </div>
     );
 }

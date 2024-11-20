@@ -3,13 +3,19 @@
 import React, { useEffect, useState } from 'react'
 import 'keen-slider/keen-slider.min.css'
 import { TrackDetails, useKeenSlider } from 'keen-slider/react'
-import CardEvent from '../app/prueba/CardEvent';
-import { Event } from '../app/types/event';
+
 import { API_URL} from '@/util/config';
 import Carga from '@/components/Carga';
 import { getCardColorByIndex  } from '@/util/cardColor.config';
+import { User } from '@/types/user';
+import CardEvent from './CardEvent';
+import { Event } from '@/app/types/event';
 
-export default function CarrouselCardEvent() {
+interface Props{
+    user?:User
+}
+
+export default function CarrouselCardEvent({user}:Props) {
 
     const [event, setEvent] = useState<Event[]>()
     const [loading, setLoading] = useState(true);  // Para controlar el estado de carga
@@ -99,6 +105,7 @@ export default function CarrouselCardEvent() {
                                     date={card.date}
                                     name={card.name}
                                     id={card.id}
+                                    user={user? user:null}
                                 />
                             </div>
                         </div>
