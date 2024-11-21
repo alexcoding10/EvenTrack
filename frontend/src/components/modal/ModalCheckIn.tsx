@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import { Box, Button, Modal, Typography } from '@mui/material';
-import QrReader from '../qr/QrReader';
-
+import QRScanner from "@/components/qr/QRScanner"
 
 interface Props {
   open: boolean;
   setOpen: (data: boolean) => void;
+  idUser?:number
+  idEvent:number
 }
 
-export default function ModalCheckIn({ open, setOpen }: Props) {
+export default function ModalCheckIn({ open, setOpen,idEvent,idUser }: Props) {
+  const[loading,setLoading] = useState(false)
+  const[error,setError] = useState(false)
+
+  const handleSetLoading = (value:boolean)=>{
+    setLoading(value)
+  }
+  const handleSetError = (value:boolean)=>{
+    setError(value)
+  }
 
   return (
     <Modal
       open={open}
-      onClose={() => setOpen && setOpen(false)}
+      onClose={() => {
+        setOpen(false); // Cierra el modal
+        setError(false); // Resetea el error
+      }}
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
     >
@@ -32,11 +45,19 @@ export default function ModalCheckIn({ open, setOpen }: Props) {
       >
         <Typography variant="h4">ESCANEA EL QR DE ENTRADA</Typography>
 
-        <div className='w-4/5 h-[250px] bg-white'>
-          <QrReader/>
-        </div>
+
+          <QRScanner
+            idUser={idUser}
+            idEvent={idEvent}
+            loading ={loading}
+            setLoading={handleSetLoading}
+            setError = {handleSetError}
+          />
+        <Typography variant="caption" className='text-red-600'>
+          {error? "Has escaneado el codigo de otro evento" : ""} 
+        </Typography>
         <Typography variant="caption">
-          Por favor, escanea el código de entrada al evento.
+          {loading? "Entrando al evento" : "Por favor, escanea el código de entrada al evento."} 
         </Typography>
 
         {/* Botón para cerrar */}

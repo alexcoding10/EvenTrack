@@ -80,19 +80,19 @@ export default function CardEvent({
     const handleRegisterBtn = () => {
         if (user) {
             // verificar que el usuario tiene check in en este evento
-            const event = user.events.filter(event => event.id == id)
+            const event = user.events.find(event => event.eventId === id); 
             console.log(event)
-            if(event.length != 0){
-                // si lo tiene verifica si tiene check out
-                const checkOut = event[event.length-1].exitDate
-                if(checkOut != null){
-                    //hacer check in  para un nuevo registro
-                    console.log("hago check in y entro al evento")
-                }else{
-                    //redireccionas a la pagina del evento
-                    console.log("entro al evento")
-                    router.push(`stand/${event[event.length - 1].id}`)
-
+            if (event) {
+                // Si el evento existe, verificamos si tiene un `checkOut`
+                const { exitDate } = event; // Destructuring para mayor claridad
+        
+                if (exitDate != null) {
+                    // Si tiene `exitDate`, significa que ya hizo check-out, por lo tanto podemos hacer un nuevo check-in
+                    console.log("Hago check-in y entro al evento");
+                } else {
+                    // Si no tiene `exitDate`, redirigimos al stand del evento
+                    console.log("Entro al evento");
+                    router.push(`stand/${event.eventId}`);
                 }
             }else{
                 //si no tiene eventos crear el check in
@@ -150,7 +150,7 @@ export default function CardEvent({
                 {!disableC ? "Entrar" : "Cerrado"}
             </Button>
             <ModalRegister open={openModal} setOpen={setOpenModal} />
-            <ModalCheckIn open={openCheckIn} setOpen={setOpenCheckIn} />
+            <ModalCheckIn open={openCheckIn} setOpen={setOpenCheckIn} idEvent={id} idUser={user?.id}/>
         </div>
     );
 }

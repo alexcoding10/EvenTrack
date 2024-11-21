@@ -18,7 +18,7 @@ export default function useGetStand({ idUser, idEvent }: Props) {
             try {
                 const response = await fetch(`${API_URL}/standevent/idevent/${idEvent}`);
                 const data = await response.json();
-                console.log(data)
+                console.log("stand event -> ",data)
                 setStandEvent(data); // Asignar los datos al estado
             } catch (error) {
                 console.error("Error al obtener los stands del evento:", error);

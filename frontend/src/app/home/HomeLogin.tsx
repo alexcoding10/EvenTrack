@@ -9,9 +9,6 @@ type HomeLoginProps = {
 }
 
 export default function HomeLogin({ user }: HomeLoginProps) {
-    useEffect(() => {
-        console.log(user)
-    },[])
 
     const handlerLogout = () => {
         // borra el localstorage
