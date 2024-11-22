@@ -12,6 +12,9 @@ export default function HomeNotLogin() {
     const [value, setValue] = React.useState(0);
     return (
         <div className='w-full h-screen flex flex-col justify-center items-center '>
+            
+
+
 
             <div className='flex items-center  w-full h-[80px] px-5 py-4 gap-4'>
                 <Typography variant='h4' className='mb-14 basis-4/5 text-purple-200'>EvenTrack</Typography>
@@ -59,8 +62,8 @@ export default function HomeNotLogin() {
                                 '&.Mui-selected': {
                                     color: '#B388FF', // Color morado claro para el ícono activo
                                 },
-                                borderLeft:'1px solid #555',
-                                borderRight:'1px solid #555'
+                                borderLeft: '1px solid #555',
+                                borderRight: '1px solid #555'
                             }}
                         />
                         <BottomNavigationAction

@@ -117,7 +117,6 @@ export default function CardEvent({
 
     // Definir los estilos para la tarjeta
     const cardStyles: React.CSSProperties = {
-        width: '350px',
         height: '200px',
         borderRadius: '1.5rem',
         display: 'flex',
@@ -130,7 +129,7 @@ export default function CardEvent({
     };
 
     return (
-        <div style={{ ...cardStyles, backgroundColor: disableC ? colorDisable : bgColor }}>
+        <div className='w-[250px] md:w-[350px]' style={{ ...cardStyles, backgroundColor: disableC ? colorDisable : bgColor }}>
             <Typography variant='h4' style={{ color: disableC ? 'black' : textColor }}>
                 {name}
             </Typography>

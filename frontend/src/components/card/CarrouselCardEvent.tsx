@@ -93,11 +93,11 @@ export default function CarrouselCardEvent({user}:Props) {
     }
 
     return (
-        <div className=' w-[400px] h-[500px]'>
+        <div className=' w-[350px] md:w-[550px] h-[500px] md:h-[500px] place-content-center '>
             <div ref={sliderRef} className="keen-slider elemento-con-mascarilla relative" style={{ height: 500 }}> {/* Contenedor para limitar el ancho */}
                 {SLIDES?.map((card, key) => {
                     return (
-                        <div key={key} className="keen-slider__slide p-7">
+                        <div key={key} className="keen-slider__slide flex justify-center p-4">
                             <div style={scaleStyle(key)} className="transition-all ease-in-out duration-300">
                                 <CardEvent
                                     bgColor={card.bgColor}

@@ -20,11 +20,11 @@ export default function SelectRegister({ url, label, name, handleChangeUser }: S
     const handleInputChange = (event: React.ChangeEvent<{}>, newInputValue: string) => {
 
         const selected = data.find((Opcion: any) => Opcion.name === toTitleCase(newInputValue));
-    
+
         // Si el valor no existe, lo almacenamos
         if (!selected) {
             handleChangeUser(name, { name: toTitleCase(newInputValue) }); // Asegúrate de que 'name' esté correctamente definido
-        }else{
+        } else {
             setSelectedOpcion(selected); // Guardar el objeto completo (id y name)
             handleChangeUser(name, selected)
         }
@@ -33,7 +33,9 @@ export default function SelectRegister({ url, label, name, handleChangeUser }: S
     if (loading) {
         return (
             <FormControl>
-                <CircularProgress />
+                <CircularProgress sx={{
+                    color: 'purple'
+                }} />
             </FormControl>
         );
     }
@@ -60,26 +62,56 @@ export default function SelectRegister({ url, label, name, handleChangeUser }: S
     };
 
     return (
-        <FormControl fullWidth>
-            <Autocomplete sx={{
+
+        <Autocomplete
+            sx={{
                 '& .MuiInputBase-input': {
-                    color: 'white', // Cambia el color del texto a blanco
+                    color: 'white', // Texto blanco
+
                 },
+                // Estilo para el contenedor del Autocomplete
+                '& .MuiOutlinedInput-root': {
+                    // Borde blanco por defecto
+                    border: '1px solid white',
+                    borderRadius: '4px',
+
+                    '&:hover': {
+                        border: '1px solid white', // Mantener el borde blanco al hacer hover
+                    },
+
+                    // Estilo cuando el campo está enfocado (borde morado)
+                    '&.Mui-focused': {
+                        border: '1px solid #B565FF',
+                    },
+
+                    // Eliminar el borde azul predeterminado cuando está enfocado
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        border: 'none', // Elimina el borde de enfoque azul del outline
+                    },
+                },
+
+                // Color del placeholder
                 '& .MuiAutocomplete-placeholder': {
-                    color: 'white', // Cambia el color del placeholder a blanco
+                    color: 'white', // Placeholder blanco
                 },
+
+                // Estilo del label
                 '& .MuiInputLabel-root': {
-                    color: 'white', // Cambia el color del label a blanco
+                    color: 'white', // Label blanco
+                    '&.Mui-focused': {
+                        color: '#B565FF', // Cambiar color a morado cuando el label tiene foco
+                    },
                 },
             }}
-                id="Opcion-select"
-                freeSolo
-                options={data.map((opcion: any) => opcion.name)} // Mapeo de nombres de las compañías
-                onChange={handleSelectChange} // Detecta el cambio de selección
-                onInputChange={handleInputChange}  // Actualiza el estado con lo que escribe el usuario
-                renderInput={(params) => <TextField {...params} label={label} />}
-            />
-        </FormControl>
+            id="Opcion-select"
+            freeSolo
+            options={data.map((opcion: any) => opcion.name)} // Mapeo de opciones
+            onChange={handleSelectChange} // Detecta el cambio de selección
+            onInputChange={handleInputChange} // Actualiza el estado con lo que escribe el usuario
+            renderInput={(params) => <TextField {...params} label={label} />}
+        />
+
+
     );
 }
 

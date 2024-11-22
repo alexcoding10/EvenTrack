@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { API_URL } from '@/util/config'
 import { Button, CircularProgress } from '@mui/material'
-import HomeNotLogin from './HomeNotLogin'
 import HomeLogin from './HomeLogin'
+import LandingPage from './LandingPage'
 
 export default function Home() {
   const [user, setUser] = useState<any>(null) // Para almacenar la información del usuario
@@ -64,7 +64,7 @@ export default function Home() {
   }
 
   if (error) {
-    return (<HomeNotLogin/> )// Muestra el home porque no hay token
+    return (<LandingPage/> )// Muestra el home porque no hay token
   }
 
 

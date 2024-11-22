@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import useFormData from '@/hooks/useFormData'
 import Carga from '@/components/Carga'
+import NavBar from '@/components/navBard/NavBarMovile'
 
 type UserLogin = {
   email: string
@@ -44,21 +45,18 @@ export default function page() {
       }
 
       const data = await response.json()
-      console.log(data)
       if (data?.access_token) {
         // Si la respuesta tiene un token, lo guardamos en el almacenamiento local
         localStorage.setItem('token', data.access_token)
-        console.log('Token recibido:', data.access_token)
-
         // Redirigimos al usuario a la página de inicio (Home)
         router.push('/home')
+        setLoading(false)
       } else {
         throw new Error('No token received')
       }
     } catch (err: any) {
       setError(err.message) // Si hubo un error, lo mostramos
-    } finally {
-      setLoading(false) // Finaliza la carga
+      setLoading(false)
     }
   }
 
@@ -67,9 +65,11 @@ export default function page() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen p-4">
+    <div className="w-full h-screen flex justify-center place-items-center ">
+      <NavBar/>
+      <div className=' w-[500px] place-items-center'>
       <Typography variant='h3' className='mb-14 text-purple-200'>EvenTack</Typography>
-      <FormControl sx={{ width: '100%', maxWidth: '400px', marginBottom: '20px', gap: '30px' }}>
+      <FormControl sx={{ width: '250px', marginBottom: '20px', gap: '30px',  }} className='md:w-[350px]'>
         <InputRegister
           label="Email"
           placeholder="Escribe tu Email"
@@ -100,6 +100,7 @@ export default function page() {
           </Button>
         </div>
       </FormControl>
+      </div>
     </div>
   )
 }
