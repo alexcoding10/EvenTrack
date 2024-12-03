@@ -6,11 +6,13 @@ import { API_URL } from '@/util/config'
 import { Button, CircularProgress } from '@mui/material'
 import HomeLogin from './HomeLogin'
 import LandingPage from './LandingPage'
+import  useStore  from '@/store/store'
 
 export default function Home() {
   const [user, setUser] = useState<any>(null) // Para almacenar la información del usuario
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const {updateUser} = useStore()
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -31,7 +33,7 @@ export default function Home() {
             
             const userData = await response.json()
             setUser(userData) // Almacena los datos del usuario en el estado
-            console.log(userData)
+            updateUser(userData) // Almaceno en el store el usuario
           } catch (err: any) {
             setError(err.message) // Si hay un error, lo almacena en el estado
           } finally {

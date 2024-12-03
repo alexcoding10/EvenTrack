@@ -12,6 +12,10 @@ export default function useGetStand({ idUser, idEvent }: Props) {
     const [standsEvent, setStandEvent] = useState<Stand[]>([])
     const [standsUserHasVisited, setStandUserHasVisited] = useState<StandUserHasVisited[]>([])
 
+    const handleSetStadVisitedUser = (stand:StandUserHasVisited) => {
+        setStandUserHasVisited((prevState) => [...prevState,stand])
+    }
+
     useEffect(() => {
         // Obtener los stands del evento y los stands visitados por el usuario
         const getStandEvent = async () => {
@@ -45,5 +49,5 @@ export default function useGetStand({ idUser, idEvent }: Props) {
 
     }, [idUser, idEvent]) // Dependencias: se ejecuta cuando idUser o idEvent cambian
 
-    return { loading, standsEvent, standsUserHasVisited }
+    return { loading, standsEvent, standsUserHasVisited, handleSetStadVisitedUser }
 }

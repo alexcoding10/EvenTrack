@@ -17,9 +17,9 @@ export default function NavBar({ user }: Props) {
 
     const handlerLogout = async () => {
         // borra el localstorage
-        await localStorage.clear();
         // refrescar la pagina
         router.push('/home')
+        localStorage.clear();
     };
 
     const handlerHref = (pathname: string) => {

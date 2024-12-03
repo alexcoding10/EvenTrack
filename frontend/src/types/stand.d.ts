@@ -1,17 +1,19 @@
 export interface Stand{
-    stand: {
+    stand:{
+
         id:number
         name:string
         description:string|null
     }
+   
 
 }
 
-export interface StandUserHasVisited{
+export class StandUserHasVisited{
     id:number
     standId:number
     userId:number
     arrivalDate:Date
     exitDate:Date|null
-    stand:Stand
+    stand:{id:number,name:string,description:string|null}
 }

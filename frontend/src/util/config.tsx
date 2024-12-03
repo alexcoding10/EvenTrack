@@ -1,4 +1,5 @@
-export const API_URL = "http://localhost:3030/api"
+export const API_URL = "http://alexcoding.es:3030/api"
+//http://alexcoding.es/
 
 
 

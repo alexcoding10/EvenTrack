@@ -1,31 +1,40 @@
 'use client'
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, FormControl, Typography } from '@mui/material';
 import InputRegister from '@/components/InputRegister';
 import SelectRegister from '@/components/SelectRegister';
 import useFormData from '@/hooks/useFormData';
 import { API_URL } from '@/util/config';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import NavBar from '@/components/navBard/NavBarMovile';
-
-
+import Carga from '@/components/Carga';
 
 export default function Page() {
+  const { userData, handleChangeUser, handleSubmit, finish } = useFormData();
+  const route = useRouter();
 
-  const { userData, handleChangeUser, handleSubmit, finish } = useFormData()
-  const route = useRouter()
+  const [isClient, setIsClient] = useState(false); // Variable para detectar si estamos en el cliente
 
-  if (finish) route.push("/login")
+  // Se asegura de que esta lógica solo se ejecute en el cliente
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
+  // Si se ha completado el formulario, redirige al login
+  if (finish) route.push("/login");
+
+  // Renderiza solo en el cliente
+  if (!isClient) {
+    return <Carga/>; // Evita el renderizado en el servidor
+  }
 
   return (
-
     <div className='w-full h-screen place-items-center'>
-      <NavBar/>
+      <NavBar />
 
       <div className="flex flex-col justify-center items-center p-24 w-[450px] md:w-[650px] mb-7 ">
-        <Typography variant='h3' className='mb-14 text-purple-200' >EvenTack</Typography>
+        <Typography variant='h3' className='mb-14 text-purple-200' >EvenTrack</Typography>
 
         <FormControl sx={{ width: '100%', maxWidth: '400px', marginBottom: '20px', gap: '30px' }}>
           <InputRegister
@@ -41,7 +50,6 @@ export default function Page() {
             type='Text'
             name="email"
             handleChangeUser={handleChangeUser}
-
           />
           <InputRegister
             label='Contraseña'
@@ -49,7 +57,6 @@ export default function Page() {
             type='password'
             name="password"
             handleChangeUser={handleChangeUser}
-
           />
           <InputRegister
             label='Edad'
@@ -57,8 +64,6 @@ export default function Page() {
             type='Number'
             name="age"
             handleChangeUser={handleChangeUser}
-
-
           />
           <InputRegister
             label='Sexo'
@@ -66,7 +71,6 @@ export default function Page() {
             type='sex'
             name="sex"
             handleChangeUser={handleChangeUser}
-
           />
 
           <SelectRegister

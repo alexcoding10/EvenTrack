@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Box, Button, CircularProgress, Modal, Typography } from "@mui/material";
-import QRScannerUserEvent from '@/components/qr/QRScannerUserEvent'
+import QRScannerUserStand from '@/components/qr/QRScannerUserStand'
+import { StandUserHasVisited } from "@/types/stand";
 
 interface Props {
   open: boolean;
   setOpen: (data: boolean) => void;
-  idUser?: number;
-  idEvent: number;
+  idUser?: number | undefined;
+  idStand: number | undefined;
+  handlerStandHasVisited:(stand:StandUserHasVisited) => void
+  handleSetStandActive: (stand: StandUserHasVisited) => void
 }
 
-export default function ModalCheckIn({ open, setOpen, idEvent, idUser }: Props) {
+export default function ModalCheckInStand({ open, setOpen, idStand, idUser,handlerStandHasVisited,handleSetStandActive }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -19,9 +22,9 @@ export default function ModalCheckIn({ open, setOpen, idEvent, idUser }: Props) 
 
   // Messages for dynamic rendering
   const messages = {
-    error: "Has escaneado el código de otro evento",
-    loading: "Entrando al evento",
-    default: "Por favor, escanea el código de entrada al evento.",
+    error: "Has escaneado el código de otro Stand",
+    loading: "Entrando Stand",
+    default: "Por favor, escanea el código de entrada al Stand.",
   };
 
   return (
@@ -61,11 +64,14 @@ export default function ModalCheckIn({ open, setOpen, idEvent, idUser }: Props) 
           </div>
         ) : (
           
-          <QRScannerUserEvent
+          <QRScannerUserStand
             idUser={idUser}
-            idEvent={idEvent}
+            idStand={idStand}
             setLoading={handleSetLoading}
             setError={handleSetError}
+            handlerStandHasVisited ={handlerStandHasVisited}
+            handleSetStandActive = {handleSetStandActive}
+            setOpen = {setOpen}
           />
         )}
 

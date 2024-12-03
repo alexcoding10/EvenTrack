@@ -14,12 +14,18 @@ type UserLogin = {
   password: string
 }
 
-export default function page() {
+export default function Page() {
   const { userData, handleChangeUser } = useFormData()
   const [userLogin, setUserLogin] = useState<UserLogin>({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isClient, setIsClient] = useState(false) // Para saber si estamos en el cliente
   const router = useRouter()
+
+  // Establecer el estado cuando el componente se monta (solo cliente)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Actualiza userLogin cuando cambian los datos del formulario
   useEffect(() => {
@@ -46,8 +52,10 @@ export default function page() {
 
       const data = await response.json()
       if (data?.access_token) {
-        // Si la respuesta tiene un token, lo guardamos en el almacenamiento local
-        localStorage.setItem('token', data.access_token)
+        // Asegúrate de que solo accedemos a localStorage en el cliente
+        if (isClient) {
+          localStorage.setItem('token', data.access_token) // Guardamos el token en el cliente
+        }
         // Redirigimos al usuario a la página de inicio (Home)
         router.push('/home')
         setLoading(false)
@@ -60,46 +68,51 @@ export default function page() {
     }
   }
 
+  // Solo muestra el contenido de la página cuando estamos en el cliente
+  if (!isClient) {
+    return <Carga /> // O puedes mostrar un loader de página, si lo prefieres
+  }
+
   if (loading) {
-    return <Carga/>// Muestra un mensaje de carga mientras esperas la respuesta
+    return <Carga /> // Muestra un mensaje de carga mientras esperas la respuesta
   }
 
   return (
     <div className="w-full h-screen flex justify-center place-items-center ">
-      <NavBar/>
+      <NavBar />
       <div className=' w-[500px] place-items-center'>
-      <Typography variant='h3' className='mb-14 text-purple-200'>EvenTack</Typography>
-      <FormControl sx={{ width: '250px', marginBottom: '20px', gap: '30px',  }} className='md:w-[350px]'>
-        <InputRegister
-          label="Email"
-          placeholder="Escribe tu Email"
-          type="text"
-          name="email"
-          handleChangeUser={handleChangeUser}
-        />
-        <InputRegister
-          label="Contraseña"
-          placeholder="Escribe tu contraseña"
-          type="password"
-          name="password"
-          handleChangeUser={handleChangeUser}
-        />
+        <Typography variant='h3' className='mb-14 text-purple-200'>EvenTrack</Typography>
+        <FormControl sx={{ width: '250px', marginBottom: '20px', gap: '30px', }} className='md:w-[350px]'>
+          <InputRegister
+            label="Email"
+            placeholder="Escribe tu Email"
+            type="text"
+            name="email"
+            handleChangeUser={handleChangeUser}
+          />
+          <InputRegister
+            label="Contraseña"
+            placeholder="Escribe tu contraseña"
+            type="password"
+            name="password"
+            handleChangeUser={handleChangeUser}
+          />
 
-        {error && (
-          <Typography color="error" variant="body2" sx={{ marginTop: 2 }}>
-            {error} {/* Muestra el mensaje de error */}
-          </Typography>
-        )}
+          {error && (
+            <Typography color="error" variant="body2" sx={{ marginTop: 2 }}>
+              {error} {/* Muestra el mensaje de error */}
+            </Typography>
+          )}
 
-        <div className="flex flex-col gap-8 mt-8 justify-around">
-          <Button className="min-w-32 text-xl" variant="contained" sx={{ backgroundColor: '#140633', borderRadius:'24px', height:'54px' }} onClick={handleSend} disabled={loading}>
-            {loading ? <CircularProgress size={24} /> : 'Log in'}
-          </Button>
-          <Button className="min-w-32 text-xl" variant="contained" sx={{ backgroundColor: '#333', borderRadius:'24px', height:'54px' }} href="/registro">
-            Sing up
-          </Button>
-        </div>
-      </FormControl>
+          <div className="flex flex-col gap-8 mt-8 justify-around">
+            <Button className="min-w-32 text-xl" variant="contained" sx={{ backgroundColor: '#140633', borderRadius:'24px', height:'54px' }} onClick={handleSend} disabled={loading}>
+              {loading ? <CircularProgress size={24} /> : 'Log in'}
+            </Button>
+            <Button className="min-w-32 text-xl" variant="contained" sx={{ backgroundColor: '#333', borderRadius:'24px', height:'54px' }} href="/registro">
+              Sing up
+            </Button>
+          </div>
+        </FormControl>
       </div>
     </div>
   )

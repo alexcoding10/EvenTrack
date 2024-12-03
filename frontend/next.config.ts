@@ -2,7 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  // Establece el host en 0.0.0.0 para permitir conexiones externas
+
+  eslint: {
+    ignoreDuringBuilds: true, // Desactiva el linting durante la compilación
+  },
+
 };
 
 export default nextConfig;

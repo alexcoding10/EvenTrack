@@ -7,13 +7,16 @@ import CardStand from '@/components/card/CardStand'
 import Carga from '@/components/Carga'
 import FotoPerfil from '@/components/foto/FotoPerfil'
 import NavBar from '@/components/navBard/NavBarMovile'
+import useGetStand from '@/hooks/useGetStand'
 import useGetUserToken from '@/hooks/useGetUserToken'
-import { StandUserHasVisited } from '@/types/stand'
+import { useStandUser } from '@/hooks/useStandUser'
+import { User } from '@/types/user'
 import { Typography } from '@mui/material'
 import React, { use, useEffect, useState } from 'react'
 
 export default function page() {
     const { user, loading } = useGetUserToken()
+
 
     if (loading) {
         return <Carga />

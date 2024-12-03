@@ -26,7 +26,7 @@ export default function StandPage({ idEvent, user }: Props) {
     const [stands, setStands] = useState<Stand[]>([]);
     const [standsHasVisited, setStandsHasVisited] = useState< StandUserHasVisited[]>([]);
     // Usamos el hook useGetStand para obtener los stands y la información del usuario
-    const { loading, standsEvent, standsUserHasVisited } = useGetStand({ idUser: user.id, idEvent });
+    const { loading, standsEvent, standsUserHasVisited,handleSetStadVisitedUser } = useGetStand({ idUser: user.id, idEvent });
 
     // Usamos useEffect para actualizar stands cuando standsEvent cambia
     useEffect(() => {
@@ -44,8 +44,8 @@ export default function StandPage({ idEvent, user }: Props) {
     }
 
     return (
-        <div>
-            <GridCardStand standUserHasVisited={standsUserHasVisited} standsEvent={stands} />
-        </div>
+        
+            <GridCardStand idUser={user.id} standUserHasVisited={standsUserHasVisited} handlerStandHasVisited = {handleSetStadVisitedUser} standsEvent={stands} />
+   
     );
 }
